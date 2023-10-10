@@ -13,10 +13,14 @@ async def start(update, context):
 async def echo(update, context):
     await context.bot.send_message(chat_id = update.effective_chat.id, text=update.message.text)
 
+async def caps(update, context):
+    await context.bot.send_message(chat_id = update.effective_chat.id, text = ' '.join(context.args).upper())
+
 if __name__ == "__main__":
     print('starting app..')
     application = ApplicationBuilder().token('6482211458:AAFiOEY3sq13UoRB-U-4D51ocrjHTSWgfBo').build()
     application.add_handler(CommandHandler('start',start))
     application.add_handler(MessageHandler(filters.TEXT and (~filters.COMMAND) , echo))
+    application.add_handler(CommandHandler('caps',caps))
     print('polling..')
     application.run_polling()
